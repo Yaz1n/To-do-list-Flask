@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask To-Do List</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        input[type="text"] { width: 300px; padding: 5px; }
+        .done { text-decoration: line-through; color: gray; }
+        button { margin-left: 5px; }
+    </style>
+</head>
+<body>
+    <h2>📝 To-Do List</h2>
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="Enter new task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+    {% for task in tasks %}
+    <li>
+        <span class="{{ 'done' if task.done }}">{{ task.task }}</span>
+        {% if not task.done %}
+            <a href="/complete/{{ loop.index0 }}"><button>Mark Done</button></a>
+        {% endif %}
+        <a href="/delete/{{ loop.index0 }}"><button>Delete</button></a>
+    </li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>
